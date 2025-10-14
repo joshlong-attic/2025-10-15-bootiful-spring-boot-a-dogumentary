@@ -5,7 +5,6 @@ import org.springframework.beans.factory.BeanRegistry;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @Configuration
@@ -22,6 +21,9 @@ class AdoptionsBeanRegistrar implements BeanRegistrar {
 
     @Override
     public void register(BeanRegistry registry, Environment env) {
-        registry.registerBean(AdoptionsService.class);
+        registry
+                .registerBean(AdoptionsService.class, as -> as
+                        .supplier(supplierContext -> new AdoptionsService(supplierContext.bean(DogRepository.class),
+                                        supplierContext.bean(ApplicationEventPublisher.class))));
     }
 }
