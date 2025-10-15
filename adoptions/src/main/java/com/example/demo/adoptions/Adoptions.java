@@ -12,8 +12,8 @@ import org.springframework.core.env.Environment;
 class Adoptions {
 
     @Bean
-    AdoptionsService adoptionsService (DogRepository repository , ApplicationEventPublisher publisher){
-        return new AdoptionsService(repository ,publisher);
+    AdoptionsService adoptionsService(DogRepository repository, ApplicationEventPublisher publisher) {
+        return new AdoptionsService(repository, publisher);
     }
 }
 
@@ -24,6 +24,6 @@ class AdoptionsBeanRegistrar implements BeanRegistrar {
         registry
                 .registerBean(AdoptionsService.class, as -> as
                         .supplier(supplierContext -> new AdoptionsService(supplierContext.bean(DogRepository.class),
-                                        supplierContext.bean(ApplicationEventPublisher.class))));
+                                supplierContext.bean(ApplicationEventPublisher.class))));
     }
 }
